@@ -41,7 +41,7 @@ spec:
           {{- end }}
           {{- end }}
           ports:
-            - name: metrics
+            - name: scrape
               containerPort: 9100
               hostPort: {{ .Values.nodeExporter.service.hostPort }}
           resources:

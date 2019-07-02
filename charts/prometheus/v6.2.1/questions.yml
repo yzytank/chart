@@ -278,3 +278,47 @@ questions:
     type: storageclass
     label: Alertmanager Persistent Volume StorageClass
     show_if: "alertmanager.enabled=true"
+# node-exporter configurations
+- variable: nodeExporter.enabled
+  default: "true"
+  description: "If true, create alertmanager"
+  type: boolean
+  group: "NodeExporter"
+  label: Enable NodeExporter
+  show_subquestion_if: true
+- variable: nodeExporter.ingress.enabled
+  default: "false"
+  description: "Expose nodeExporter using Layer 7 Load Balancer - ingress"
+  type: boolean
+  group: "NodeExporter"
+  label: Expose Alertmanager using Layer 7 Load Balancer
+  show_if: "nodeExporter.enabled=true"
+  show_subquestion_if: true
+  required: true
+  subquestions:
+  - variable: alertmanager.ingress.hosts[0]
+    default: "xip.io"
+    description: "Hostname to your nodeExporter installation"
+    type: hostname
+    required: true
+    label: Hostname
+    show_if: "nodeExporter.enabled=true"
+- variable: nodeExporter.service.type
+  default: "NodePort"
+  description: "NodeExporter service type"
+  type: enum
+  show_if: "nodeExporter.ingress.enabled=false&&nodeExporter.enabled=true"
+  group: "NodeExporter"
+  options:
+    - "ClusterIP"
+    - "NodePort"
+  required: true
+  label: NodeExporter Service Type
+  show_subquestion_if: "NodePort"
+  subquestions:
+  - variable: nodeExporter.service.nodePort
+    default: "9100"
+    description: "NodePort http port(to set explicitly)"
+    type: int
+    label: NodeExporter NodePort Http Port
+    show_if: "nodeExporter.enabled=true&&nodeExporter.ingress.enabled=false"

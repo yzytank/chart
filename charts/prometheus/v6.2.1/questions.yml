@@ -318,7 +318,9 @@ questions:
   subquestions:
   - variable: nodeExporter.service.nodePort
     default: "9100"
-    description: "NodePort http port(to set explicitly)"
+    description: "NodePort http port(to set explicitly), choose port between 30000-32767"
     type: int
+    min: 30000
+    max: 32767
     label: NodeExporter NodePort Http Port
     show_if: "nodeExporter.enabled=true&&nodeExporter.ingress.enabled=false"

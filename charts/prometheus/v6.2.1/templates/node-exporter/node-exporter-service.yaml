@@ -34,14 +34,7 @@ spec:
   {{- end }}
 {{- end }}
   ports:
-    - name: http
-      port: {{ .Values.nodeExporter.service.servicePort }}
-      protocol: TCP
-      targetPort: 9100
-    {{- if .Values.nodeExporter.service.nodePort }}
-      nodePort: {{ .Values.nodeExporter.service.nodePort }}
-    {{- end }}
-    - name: metrics
+    - name: scrape
       port: {{ .Values.nodeExporter.service.servicePort }}
       protocol: TCP
       targetPort: 9100

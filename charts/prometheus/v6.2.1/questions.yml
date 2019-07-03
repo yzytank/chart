@@ -250,7 +250,7 @@ questions:
   subquestions:
   - variable: alertmanager.service.nodePort
     default: ""
-    description: "NodePort http port(to set explicitly, choose port between 30000-32767)"
+    description: "NodePort http port(to set explicitly, choose port between 30000-32767 ttt)"
     type: int
     min: 30000
     max: 32767
